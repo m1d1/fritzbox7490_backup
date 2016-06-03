@@ -2,7 +2,7 @@
 
 ##
 #  An example how to use lib_fritz7490
-#  adjust vars _FBOX, _PASSWORD, _DESTINATION 
+#  adjust vars _FBOX, _PASSWORD, DESTINATION 
 #  and the name of the default Phonebook in line 25
 #  to backup your FRITZ!Box settings and phonebook.
 ##
