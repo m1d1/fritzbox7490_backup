@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ##
-#  An example how to use lib_fritz7490
+#  An example how to use lib_fritz7490 (or lib_fritz7390)
 #  adjust vars _FBOX, _PASSWORD, DESTINATION 
-#  and the name of the default Phonebook in line 25
+#  and the export name of the Phonebook in line 26
 #  to backup your FRITZ!Box settings and phonebook.
 ##
 
@@ -20,6 +20,7 @@ ROTATE_PERIOD=180
 DESTINATION="/rainbow/unicorn/FritzBox/"
 
 source ./lib_fritz7490.sh
+#source ./lib_fritz7390.sh
 login
 export_settings $_EXPORT_PASSWORD >$DESTINATION/$(date +%Y-%m-%d)_fritzbox_settings.cfg
 export_phonebook 0 Phonebook >$DESTINATION/$(date +%Y-%m-%d)_fritzbox_phonebook.xml
