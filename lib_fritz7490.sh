@@ -1,11 +1,23 @@
-#!/bin/bash
+#!/ffp/bin/bash
 
-#  File:    lib_fritz7490.sh
+
 #  Model:   FRITZ!Box 7490
-#  OS:      06.51
+#  OS:      06.80
 #  author:  Michael Dinkelaker,
 #           michael[dot]dinkelaker[at]gmail[dot]com
-#  date:    2016-06-03
+#  date:    0.1, 2016-06-03 first release
+#           0.2, 2017-03-03 fix for firmware 6.80
+
+
+#  usage:
+#           source lib_fritz7490.sh
+#           _FBOX="http://192.178.0.1"
+#           _PASSWORD="secret_fbox_login"
+#           login
+#           export_settings myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_settings.cfg
+#           export_phonebook 0 Telefonbuch > /some/location/$(date +%Y-%m-%d)_telefonbuch.xml
+#           export_phonebook 1 Work > /some/location/$(date +%Y-%m-%d)_work.xml
+
 
 function login() {
     #  check if environment variables are setup correctly
@@ -17,7 +29,7 @@ function login() {
     get_challenge
     get_md5
     # assemble challenge key and md5
-    _RESPONSE=${_CHALLENGE}"-"${_MD5}
+    _RESPONSE="$_CHALLENGE"-"$_MD5"
     get_sid
 }
 
@@ -32,10 +44,10 @@ function export_settings() {
 
     curl -s \
          -k \
-         --form 'sid='${_SID} \
-         --form 'ImportExportPassword='${_EXPORT_PASSWORD} \
-         --form 'ConfigExport=' \
-         ${_FBOX}/cgi-bin/firmwarecfg
+         -F 'sid='$_SID \
+         -F 'ImportExportPassword='$_EXPORT_PASSWORD \
+         -F 'ConfigExport=' \
+       $_FBOX/cgi-bin/firmwarecfg
 }
 
 # get phonebook from FritzBox and write to STDOUT
@@ -52,11 +64,11 @@ function export_phonebook() {
 
     curl -s \
          -k \
-         --form 'sid='${_SID} \
-         --form 'PhonebookId='${_PhoneBookId} \
-         --form 'PhonebookExportName='${_PhoneBookExportName} \
-         --form 'PhonebookExport=' \
-         ${_FBOX}/cgi-bin/firmwarecfg
+         -F 'sid='$_SID \
+         -F 'PhonebookId='$_PhoneBookId \
+         -F 'PhonebookExportName='$_PhoneBookExportName \
+         -F 'PhonebookExport=' \
+         $_FBOX/cgi-bin/firmwarecfg
 
 }
 
@@ -67,15 +79,14 @@ function export_phonebook() {
 function get_challenge() {
     _CHALLENGE=$(curl -s \
                       -k \
-                      "${_FBOX}" | \
-                  grep "challenge" | \
-                  awk -F'"' '{ print $4 }')
+                      "$_FBOX" | \
+                 grep -Po '(?<="challenge":")[^"]*')
 }
 
 # build md5 from challenge key and password
 function get_md5() {
     _MD5=$(echo -n \
-        ${_CHALLENGE}"-"${_PASSWORD} | \
+        $_CHALLENGE"-"$_PASSWORD | \
         iconv -f ISO8859-1 \
               -t UTF-16LE | \
         md5sum -b | \
@@ -86,10 +97,10 @@ function get_sid() {
     _SID=$(curl -i \
                 -s \
                 -k \
-                -d 'response='${_RESPONSE} \
+                -d 'response='$_RESPONSE \
                 -d 'page=' \
-                -d 'username='${_USERNAME} \
-                ${_FBOX} | grep "\"sid\":" | \
-                awk -F'"' {' print $4 '})
+                -d 'username='$_USERNAME \
+                $_FBOX | \
+             grep -Po '(?<="sid":")[^"]*')
 }
 ########################################################################################################################
