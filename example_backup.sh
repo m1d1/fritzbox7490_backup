@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ##
 #  An example how to use lib_fritz7490 (or lib_fritz7390)

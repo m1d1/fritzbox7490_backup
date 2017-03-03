@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #  File:    lib_fritz7390.sh
 #  Model:   FRITZ!Box 7390

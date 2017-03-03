@@ -1,4 +1,4 @@
-#!/ffp/bin/bash
+#!/usr/bin/env bash
 
 
 #  Model:   FRITZ!Box 7490
