@@ -9,7 +9,7 @@ files via the FRITZ! Webinterface.
 
 -------------------------------------------
 Note: 
-Fritz! Firmware 6.80 
+Fritz! firmware since 6.80 
 
 In case settings backup is empty:
 Uncheck "additional confirmations" 
