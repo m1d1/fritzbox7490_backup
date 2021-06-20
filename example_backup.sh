@@ -11,7 +11,8 @@
 #  author:  Michael Dinkelaker,
 #           michael[dot]dinkelaker[at]gmail[dot]com
 #  date:    2016-06-03 creation
-#			2020-10-05 updated for Fritz!OS 7.21 
+#           2020-10-05 updated for Fritz!Os 7.21 
+#           2021-06-20 updated for Fritz!Os 7.27
 
 
 _FBOX="http://192.178.0.1"
