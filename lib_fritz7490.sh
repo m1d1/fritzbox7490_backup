@@ -1,30 +1,33 @@
 #!/usr/bin/env bash
 
 #
-#  Model:   	FRITZ!Box 7490
-#  Fritz!OS:	7.21
-#  author:  	Michael Dinkelaker,
-#           	michael[dot]dinkelaker[at]gmail[dot]com
+#  Model:       FRITZ!Box 7490 (7590?)
+#  Fritz!OS:    7.27
+#  author:      Michael Dinkelaker,
+#               michael[dot]dinkelaker[at]gmail[dot]com
 #
-#  version history:    
-#	0.1, 2016-06-03 first release
-#   0.2, 2017-03-03 fix for Fritz!OS 6.80
-#	0.3, 2020-10-05, fix for Fritz!OS 7.21
+#  version history:
+#   0.1, 2016-06-03, first release
+#   0.2, 2017-03-03, fix for Fritz!OS 6.80
+#   0.3, 2020-10-05, fix for Fritz!OS 7.21
+#   0.4, 2020-06-20, fix for Fritz!OS 7.27
+#                    added export_phoneassets. Login needs a Username now.
 #
 #  example usage:
-#	   source lib_fritz7490.sh
-#	   _FBOX="http://192.178.0.1"
-#	   _PASSWORD="secret_fbox_login"
-#	   _EXPORT_PASSWORD="same_or_another_secret"
-#	   login
-#	   export_settings myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_settings.cfg
-#	   export_phonebook 0 Telefonbuch > /some/location/$(date +%Y-%m-%d)_telefonbuch.xml
-#	   export_phonebook 1 Work > /some/location/$(date +%Y-%m-%d)_work.xml
+#      source lib_fritz7490.sh
+#      _FBOX="http://192.178.0.1"
+#      _PASSWORD="secret_fbox_login"
+#      _EXPORT_PASSWORD="same_or_another_secret"
+#      login
+#      export_settings myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_settings.export
+#      export_phoneassets myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_phone.assets.zip
+#      export_phonebook 0 Telefonbuch > /some/location/$(date +%Y-%m-%d)_telefonbuch.xml
+#      export_phonebook 1 Work > /some/location/$(date +%Y-%m-%d)_work.xml
 #
 
 function login() {
     #  check if environment variables are setup correctly
-    if [[ -z ${_FBOX} ]] || [[ -z ${_PASSWORD} ]]; then
+    if [[ -z ${_FBOX} ]] || [[ -z ${_PASSWORD} ]] || [[ -z ${_USERNAME} ]]; then
       echo "Error: make sure VARS _FBOX, _PASSWORD and _USERNAME are set!!!"
       exit 1
     fi
@@ -50,6 +53,23 @@ function export_settings() {
          -F 'sid='${_SID} \
          -F 'ImportExportPassword='${_EXPORT_PASSWORD} \
          -F 'ConfigExport=' \
+       ${_FBOX}/cgi-bin/firmwarecfg
+}
+
+# get phone assets from FritzBox and write to STDOUT
+# argument 1: export password
+function export_phoneassets() {
+    local _EXPORT_PASSWORD=$1
+    if [[ -z ${_EXPORT_PASSWORD} ]]; then
+      echo "Error: EXPORT_PASSWORD is empty!!!"
+      exit 1
+    fi
+
+    curl -s \
+         -k \
+         -F 'sid='${_SID} \
+         -F 'AssetsImportExportPassword='${_EXPORT_PASSWORD} \
+         -F 'AssetsExport=' \
        ${_FBOX}/cgi-bin/firmwarecfg
 }
 
