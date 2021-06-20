@@ -1,11 +1,15 @@
-# fritzbox7490_backup v0.3
+# fritzbox7490_backup v0.4
 
-Bash script for creating backups remotely from a Fritz!Box 7490 (7390).
+Bash script for creating backups remotely from a Fritz!Box 7490 (maybe 7590).
 Backup phonebook/s and configuration.
 Restore using the FRITZ! webinterface.
 
 -------------------------------------------
 **Version history**:
+- v0.4: fixes for Fritz!Os 7.27
+	Added export_phoneassets. Exports custom ringtones and answering machine.
+	Login Username must be set now. Export password should be set 
+	Dropped lib_7390.sh.
 - v0.3: fixes for Fritz!OS 7.21 
 - v0.2: fixes for Fritz!OS 6.80:
 	In case settings backup is empty:
