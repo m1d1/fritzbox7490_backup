@@ -13,6 +13,7 @@
 #  date:    2016-06-03 creation
 #           2020-10-05 updated for Fritz!Os 7.21 
 #           2021-06-20 updated for Fritz!Os 7.27
+#           2023-10-13 added export for "Telephony > Call Handling" in example_backup.sh
 
 
 _FBOX="http://192.178.0.1"
@@ -28,6 +29,7 @@ export_settings ${_EXPORT_PASSWORD} >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_s
 export_phoneassets ${_EXPORT_PASSWORD} >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_phone.assets.zip
 export_phonebook 0 Phonebook >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_phonebook.xml
 #export_phonebook 1 Work >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_phonebook_work.xml
+export_phonebook 258 CallHandling >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_callhandling.xml
 
 # delete files older than ${ROTATE_PERIOD} days. uncomment to use
-#find ${DESTINATION} -mtime +${ROTATE_PERIOD} -exec rm {} \;
+#find ${DESTINATION} -mtime +${ROTATE_PERIOD} -delete

@@ -12,6 +12,7 @@
 #   0.3, 2020-10-05, fix for Fritz!OS 7.21
 #   0.4, 2020-06-20, fix for Fritz!OS 7.27
 #                    added export_phoneassets. Login needs a Username now.
+#   0.5, 2023-10-13, added export for "Telephony > Call Handling" in example_backup.sh
 #
 #  example usage:
 #      source lib_fritz7490.sh
@@ -22,7 +23,8 @@
 #      export_settings myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_settings.export
 #      export_phoneassets myExportPassword > /some/location/$(date +%Y-%m-%d)_fritz_phone.assets.zip
 #      export_phonebook 0 Telefonbuch > /some/location/$(date +%Y-%m-%d)_telefonbuch.xml
-#      export_phonebook 1 Work > /some/location/$(date +%Y-%m-%d)_work.xml
+#      export_phonebook 1 Work >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_phonebook_work.xml
+#      export_phonebook 258 CallHandling >${DESTINATION}/$(date +%Y-%m-%d)_fritzbox_callhandling.xml
 #
 
 function login() {
