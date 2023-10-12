@@ -6,6 +6,7 @@ For restore use the FRITZ! webinterface.
 
 -------------------------------------------
 **Version history**:
+- v0.5: added export for "Telephony > Call Handling" in example_backup.sh
 - v0.4: fixes for Fritz!Os 7.27
 	Added export_phoneassets. Exports custom ringtones and voicebox.
 	Login Username must be set now. Export password should be set.
