@@ -1,4 +1,4 @@
-# fritzbox7490_backup v0.4
+# fritzbox7490_backup v0.5
 
 Bash script for creating backups remotely from a Fritz!Box 7490 (maybe 7590).
 Backup phonebook/s, configuration and phone assets.
