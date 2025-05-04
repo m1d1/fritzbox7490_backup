@@ -1,3 +1,4 @@
+## Repo archived. Checkout: https://github.com/m1d1/go-fritz-backup
 # fritzbox7490_backup v0.5
 
 Bash script for creating backups remotely from a Fritz!Box 7490 (maybe 7590).
@@ -19,3 +20,5 @@ For restore use the FRITZ! webinterface.
 	http://fritz.box/?lp=userSet
 	to make settings backup work again.
 (For troubleshooting make a manual backup from the webinterface to get security prompts)
+
+
